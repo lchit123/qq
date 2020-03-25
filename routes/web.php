@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//首页
+Route::get('/',"IndexController@index");
+//首页
+Route::get('/',"IndexController@wx");
