@@ -18,5 +18,5 @@ Route::get('/', function () {
 
 //首页
 Route::get('/',"IndexController@index");
-//首页
+//微信
 Route::get('/',"IndexController@wx");
