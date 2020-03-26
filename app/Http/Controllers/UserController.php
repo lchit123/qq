@@ -49,8 +49,23 @@ class UserController extends Controller
         $appsecret="1bd93a56b35bcf5fd8eae80c0a76dd4e";
         $uri=urlencode("http://zzy.chatroom.13366737021.top/logins");
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=$uid#wechat_redirect";
-        //echo $url;
         header("location:$url");
     }
+
+   //注册
+    public function reg()
+    {
+        return view("/user/reg");
+    }
+
+    public function regDo(Request $request)
+    {
+        $data = $request->except("_toke");
+        $res = UserModel::create($data);
+        if($res) {
+            return redirect("/user/login");
+        }
+    }
+
 
 }
