@@ -19,4 +19,10 @@ Route::get('/', function () {
 //首页
 Route::get('/',"IndexController@index");
 //微信
-Route::get('/',"IndexController@wx");
+Route::get('/login',"UserController@login");
+Route::post('/user/ loginss',"UserController@ loginss");
+Route::get('/aouth',"UserController@aouth");
+Route::get('/oauth',"UserController@oauth");
+//注册
+Route::get('/user/reg',"UserController@reg");
+Route::post('/user/regDo',"UserController@regDo");
