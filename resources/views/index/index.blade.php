@@ -9,8 +9,7 @@
     <!-- prevent dom xss -->
     <script type="text/javascript" src="static/js/aq_common.js"></script>
     <script type="text/javascript">
-        var userLang = "";
-    </script>
+        var userLang = "";    </script>
     <script type="text/javascript" src="static/js/base.js"></script>
     {{--    <script type="text/javascript">--}}
     {{--        var addToBookshelfAjaxUrl = "/public/addToBookshelf.html";--}}
