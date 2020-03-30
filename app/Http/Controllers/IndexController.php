@@ -10,7 +10,12 @@ class IndexController extends Controller
     /**首页*/
     public function index(){
         //获取顶级分类
-        $catetop = CategoryModel::where(["parend_id"=>0])->get();
+//        $catetop = CategoryModel::where(["parend_id"=>0])->get()->toarray();
+        $catetop = [
+            ["cate_id"=>1,"cate_name"=>"创世","status"=>0,"partend_id"=>0],
+            ["cate_id"=>2,"cate_name"=>"云起","status"=>0,"partend_id"=>0],
+            ["cate_id"=>3,"cate_name"=>"图书","status"=>0,"partend_id"=>0]
+        ];
         $this->qrcode();
         return view("/index/index",['catetop'=>$catetop]);
     }
