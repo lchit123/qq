@@ -25,6 +25,9 @@ Route::get('/aouth',"UserController@aouth");
 Route::get('/oauth',"UserController@oauth");
 Route::get('/login1',"UserController@login1");//登录页面
 Route::post('/login',"UserController@loginDo");//登录执行
+Route::post('/getcode',"UserController@getcode");
+Route::post('/phonenum',"UserController@phonenum");
+
 //注册
 Route::get('/user/reg',"UserController@reg");
 Route::post('/user/regDo',"UserController@regDo");
