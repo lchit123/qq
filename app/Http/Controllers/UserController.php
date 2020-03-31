@@ -66,6 +66,26 @@ class UserController extends Controller
             return redirect("/user/login");
         }
     }
+    public function phonenum(Request $request){
+        $phonenum = $request->phonenum;
+        $count = UserModel::where(["phonenum"=>$phonenum])->count();
+        if($count>=1){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+    //获取验证码
+    public function getcode(Request $request)
+    {
+        $phonenum = $request->phonenum;
+        if(empty($phonenum)){
+            return "手机号不能为空";
+        }
+        $getcode = rand(1000,9999);
+        session(['getcode'=>$getcode]);
+        return $getcode;
+    }
 
 
 }

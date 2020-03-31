@@ -37,9 +37,13 @@ class IndexController extends Controller
         header('Location:'.$url);
     }
     /**详情**/
-    public  function datal()
+    public  function detail($id)
     {
-        return view("index/datal");
+        //获取头部导航分类信息
+        $noveltypeinfo=NovelTypeModel::where(["parend_id"=>0])->get();
+        //获取单条详情信息
+        $info = NovelModel::where(["novel_id"=>$id])->first();
+        return view("/index/detail",['info'=>$info,"noveltypeinfo"=>$noveltypeinfo]);
     }
 
 }
