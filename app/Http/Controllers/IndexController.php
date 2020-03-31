@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use QRcode;
 use App\Models\CategoryModel;
-class IndexController extends Controller
-{
+use App\Models\NovelModel;
+use App\Models\NovelTypeModel;
+class IndexController extends Controller{
     /**首页*/
     public function index(){
         //获取顶级分类
@@ -44,6 +45,10 @@ class IndexController extends Controller
         //获取单条详情信息
         $info = NovelModel::where(["novel_id"=>$id])->first();
         return view("/index/detail",['info'=>$info,"noveltypeinfo"=>$noveltypeinfo]);
+    }
+    /**分类详情页**/
+    public function novelType($id){
+        dd($id);
     }
 
 }
