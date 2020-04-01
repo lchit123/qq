@@ -5,23 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
 use QRcode;
-class UserController extends Controller{
-    /**
-     * 登录
-     */
-    public function login()
-    {
-         return view("/user/login");
-    }
-
-
-    public function loginss(Request $request){
-        $data = $request->except("_token");
-        $dd=UserModel::get();
-        $info = UserModel::where(["account"=>$data['account']])->first();
-
-    }
-    public function logins(){
+class UserController extends Controller
+{
+    public function aouth(){
         $code = $_GET['code'];
         $appid="wx6ba488e185b54715";
         $appsecret="1bd93a56b35bcf5fd8eae80c0a76dd4e";
@@ -34,38 +20,71 @@ class UserController extends Controller{
         $user = json_decode($userInfo,true);
         print_r($user);
     }
-    public function aouth(){
-        include './phpqrcode.php';
-        $uid = uniqid();
-        $url="http://zzy.chatroom.13366737021.top//oauth.php?uid=".$uid;
-        $obj = new \QRcode();
-        $obj->png($url,'/1.png');
 
+    /**登录页面**/
+    public function login(){
+        $img = session('image');
+        return view("/user/login",['img'=>$img]);
     }
-    //扫码登陆
-    public function oauth(){
-        $uid =$_GET['uid'];
-        $appid="wx6ba488e185b54715";
-        $appsecret="1bd93a56b35bcf5fd8eae80c0a76dd4e";
-        $uri=urlencode("http://zzy.chatroom.13366737021.top/logins");
-        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$uri&response_type=code&scope=snsapi_userinfo&state=$uid#wechat_redirect";
-        header("location:$url");
+    /**登录执行**/
+    public function loginDo(Request $request){
+        $data = $request->except("_token");
+        if(empty($data['phonenum'])){
+            echo   "手机号不能为空,正在为你跳转注册页面";
+            header("Refresh:5; URL =/login");die;
+        }
+        if(empty($data['password'])){
+            echo   "密码不能为空,正在为你跳转注册页面";
+            header("Refresh:5; URL =/login");die;
+        }
+        //根据手机号获取一条
+        $info = UserModel::where(["phonenum"=>$data['phonenum']])->first();
+        if(!empty($info)){
+            if($data['password']!=$info['password']){
+                echo   "账号或密码错误,正在为你跳转登录页面";
+                header("Refresh:5; URL =/login");die;
+            }else{
+                session(["login"=>$info]);
+                return redirect("/");
+            }
+        }else{
+            echo   "账号或密码错误,正在为你跳转登录页面";
+            header("Refresh:5; URL =/login");die;
+        }
     }
-
-   //注册
+    /**注册页面**/
     public function reg()
     {
         return view("/user/reg");
     }
-
+    /**注册执行**/
     public function regDo(Request $request)
     {
         $data = $request->except("_toke");
-        $res = UserModel::create($data);
+        if(empty($data['phonenum'])){
+            echo   "手机号不能为空,正在为你跳转注册页面";
+            header("Refresh:5; URL =/reg");die;
+        }
+        if(empty($data['password'])){
+            echo   "密码不能为空,正在为你跳转注册页面";
+            header("Refresh:5; URL =/reg");die;
+        }
+        if(empty($data['code'])){
+            echo   "验证码不能为空,正在为你跳转注册页面";
+            header("Refresh:5; URL =/reg");die;
+        }
+        $code = session("getcode");
+        if($data['code']!=$code){
+            echo   "验证码不正确,正在为你跳转注册页面";
+            header("Refresh:5; URL =/reg");die;
+        }
+        unset($data['code']);
+        $res=UserModel::create($data);
         if($res) {
-            return redirect("/user/login");
+            return redirect("/login");
         }
     }
+    //手机号唯一
     public function phonenum(Request $request){
         $phonenum = $request->phonenum;
         $count = UserModel::where(["phonenum"=>$phonenum])->count();
@@ -86,6 +105,4 @@ class UserController extends Controller{
         session(['getcode'=>$getcode]);
         return $getcode;
     }
-
-
 }
