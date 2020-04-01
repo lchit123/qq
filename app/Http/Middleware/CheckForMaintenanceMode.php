@@ -2,19 +2,16 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode as Middleware;
 
-class CheckToken
+class CheckForMaintenanceMode extends Middleware
 {
     /**
-     * Handle an incoming request.
+     * The URIs that should be reachable while maintenance mode is enabled.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @var array
      */
-    public function handle($request, Closure $next)
-    {
-        return $next($request);
-    }
+    protected $except = [
+        //
+    ];
 }

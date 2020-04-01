@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 //首页
-Route::get('/',"IndexController@index")->middleware('token');
+Route::get('/',"IndexController@index");
 //微信
 Route::get('/login',"UserController@login");
 Route::post('/user/ loginss',"UserController@ loginss");
