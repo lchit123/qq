@@ -67,8 +67,8 @@
         <div class="loginBox">
             <div class="login_before">
                 <span class="navline">|</span>
-                <a class="reg" target="_blank" href="http://fuleshop.lqove.xyz/reg">注册</a>
-                <a class="reg" target="_blank" href="http://fuleshop.lqove.xyz/login">登录</a>
+                <a class="reg" target="_blank" href="http://zzy.chatroom.13366737021.top/reg">注册</a>
+                <a class="reg" target="_blank" href="http://zzy.chatroom.13366737021.top/login">登录</a>
             </div>
         </div>
         <!--顶部右边区块-->

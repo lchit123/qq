@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use QRcode;
 use App\Models\CategoryModel;
-//use App\Models\NovelModel;
-//use App\Models\NovelTypeModel;
+use App\Models\NovelModel;
+use App\Models\NovelTypeModel;
 class IndexController extends Controller{
     /**首页*/
     public function index(){
-        dd(12);
         //获取顶级分类
 //        $catetop = CategoryModel::where(["parend_id"=>0])->get()->toarray();
         $catetop = [
